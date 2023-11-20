@@ -35,4 +35,5 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::post('/loans', [LoanController::class, 'store'])
     ->name('loans.store'); 
 
-Route::post('/document-upload', [DocumentUploadController::class, 'upload'])->name('document.upload');
+Route::post('/document-upload', [DocumentUploadController::class, 'upload'])
+    ->name('api.documents.store');

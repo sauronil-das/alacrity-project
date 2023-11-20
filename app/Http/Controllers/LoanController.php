@@ -40,6 +40,8 @@ class LoanController extends Controller
     public function store(StoreLoanRequest $request)
     {
         $data = $request->validated();
+        
+        
 
         $userKeys = [
             'email',

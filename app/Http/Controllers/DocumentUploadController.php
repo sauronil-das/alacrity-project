@@ -19,16 +19,24 @@ class DocumentUploadController extends Controller
             'passport' => 'required|file|mimes:jpeg,png,jpg,pdf|max:5000',
         ]);
 
-        $brpPath = $passportPath = '';
+        
 
         if ($request->hasFile('brp')) {
-            $brpFile = $request->file('brp');
-            $brpPath = $brpFile->store('documents/brp', 'public');
+            $brpPath = $request->file('brp')->store('documents/brp', 'public');
+
+            // Do you need a full HTTP URL to the uploaded file?
+            $url = Storage::url($brpPath);
+
+            // Do we want to update the user model?
+            // Something like??
+            // Auth::user()->documents()->create([
+            //     'url' => $url,
+            //     'type' => 'brp'
+            // ]);
         }
 
         if ($request->hasFile('passport')) {
-            $passportFile = $request->file('passport');
-            $passportPath = $passportFile->store('documents/passport', 'public');
+            $passportPath = $request->file('passport')->store('documents/passport', 'public');
         }
 
         return response()->json([

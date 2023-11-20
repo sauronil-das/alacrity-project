@@ -1,7 +1,7 @@
 <template>
     <div class="container mt-4">
       <h1 class="mb-4">Document Upload</h1>
-      <form @submit.prevent="createLoan" class="mb-3">
+      <form @submit.prevent="uploadDocument" class="mb-3">
         <div class="mb-3">
           <label for="brpFile" class="form-label">BRP Image</label>
           <input
@@ -50,24 +50,25 @@
       };
     },
     methods: {
-      createLoan() {
+      uploadDocument() {
         const formData = new FormData();
         if (this.newLoan.brpFile) formData.append("brp", this.newLoan.brpFile);
         if (this.newLoan.passportFile) formData.append("passport", this.newLoan.passportFile);
+
+        const url = route('api.documents.store');
   
         axios
-          .post("/document-upload", formData, {
+          .post(url, formData, {
             headers: {
               "Content-Type": "multipart/form-data",
             },
           })
           .then((response) => {
-            // Handle the response, e.g., show a success message
-            router.visit(route('Welcome')); // Replace with the appropriate route
+            
+            router.visit(route('confirmed')); 
           })
           .catch((error) => {
             this.errorMessage = error.response.data.message;
-            // Handle the error, e.g., show an error message
           });
       },
       handleBrpFileChange(event) {

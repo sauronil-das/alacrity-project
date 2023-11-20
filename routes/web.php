@@ -39,4 +39,8 @@ Route::get('/example2', function () {
 
 Route::get('/loans/create', [LoanController::class, 'create'])->name('loans.create');
 
+Route::get('/confirmed', function () {
+    return Inertia::render('Confirmed');
+})->name('confirmed');
+
 Route::get('/document-upload', [DocumentUploadController::class, 'show'])->name('UploadDocuments');
