@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Mail\DocumentUploadMail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
 class DocumentUploadController extends Controller
@@ -37,7 +40,11 @@ class DocumentUploadController extends Controller
 
         if ($request->hasFile('passport')) {
             $passportPath = $request->file('passport')->store('documents/passport', 'public');
+            $userEmail = Cache::get('userEmail');
+            Mail::to($userEmail)->send(new DocumentUploadMail());
         }
+
+        
 
         return response()->json([
             'message' => 'Files uploaded successfully',

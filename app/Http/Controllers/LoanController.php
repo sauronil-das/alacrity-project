@@ -41,7 +41,7 @@ class LoanController extends Controller
     {
         $data = $request->validated();
         
-        
+
 
         $userKeys = [
             'email',
@@ -65,6 +65,9 @@ class LoanController extends Controller
 
         $user = User::create($userData);
         $loan = $user->loans()->create($loanData);
+    
+        $userEmail = $data['email'];
+        Cache::put('userEmail', $userEmail, 5);
 
         return [
             'user' => $user,
