@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use Faker\Provider\Address;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -27,7 +28,7 @@ class DocumentUploadMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Document Upload Mail Please Wait For Verification',
+            subject: 'Document Uploaded. Please Wait For Verification',
         );
     }
 

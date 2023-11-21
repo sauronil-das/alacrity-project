@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Auth\AdminAuthController;
 use App\Http\Controllers\DocumentUploadController;
 use App\Http\Controllers\LoanController;
+use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +28,10 @@ Route::middleware('auth:sanctum')->group(function () {
         return fake()->name();
     })->name('api.name')->can('getName', User::class);
 
+    Route::get('/users', [UserController::class, 'index']);
+    Route::put('/users/{user}', [UserController::class, 'update']);
+    Route::delete('/users/{user}', [UserController::class, 'destroy']);
+
 }); 
 
 // Route::method('/url', [Controller:class, 'methodAction'])
@@ -37,3 +43,8 @@ Route::post('/loans', [LoanController::class, 'store'])
 
 Route::post('/document-upload', [DocumentUploadController::class, 'upload'])
     ->name('api.documents.store');
+
+    // Admin Authentication
+Route::post('/admin/register', [AdminAuthController::class, 'register']);
+Route::post('/admin/login', [AdminAuthController::class, 'login']);
+
