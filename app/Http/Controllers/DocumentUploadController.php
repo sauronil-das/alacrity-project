@@ -5,6 +5,7 @@ use App\Mail\DocumentUploadMail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
@@ -16,13 +17,11 @@ class DocumentUploadController extends Controller
     }
     public function upload(Request $request)
     {
-        
         $request->validate([
             'brp' => 'required|file|mimes:jpeg,png,jpg,pdf|max:5000',
             'passport' => 'required|file|mimes:jpeg,png,jpg,pdf|max:5000',
         ]);
 
-        
 
         if ($request->hasFile('brp')) {
             $brpPath = $request->file('brp')->store('documents/brp', 'public');
@@ -40,7 +39,8 @@ class DocumentUploadController extends Controller
 
         if ($request->hasFile('passport')) {
             $passportPath = $request->file('passport')->store('documents/passport', 'public');
-            $userEmail = Cache::get('userEmail');
+            Log::info(Cache::get('userEmail').'user_email');
+            $userEmail = Cache::get('userEmail').'user_email' ;
             Mail::to($userEmail)->send(new DocumentUploadMail());
         }
 

@@ -2,7 +2,6 @@
 
 namespace App\Mail;
 
-use Faker\Provider\Address;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -28,18 +27,17 @@ class DocumentUploadMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Document Uploaded. Please Wait For Verification',
+            subject: 'Document Upload Mail Notification',
         );
     }
 
     /**
      * Get the message content definition.
      */
-    public function content(): Content
+
+    public function build()
     {
-        return new Content(
-            view: 'view.name',
-        );
+        return $this->markdown('emails.document_uploaded');
     }
 
     /**

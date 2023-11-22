@@ -56,6 +56,9 @@
         if (this.newLoan.passportFile) formData.append("passport", this.newLoan.passportFile);
 
         const url = route('api.documents.store');
+        console.log(formData.toString());
+
+      
   
         axios
           .post(url, formData, {
@@ -65,7 +68,7 @@
           })
           .then((response) => {
             
-            router.visit(route('confirmed')); 
+            router.visit('confirmed'); 
           })
           .catch((error) => {
             this.errorMessage = error.response.data.message;

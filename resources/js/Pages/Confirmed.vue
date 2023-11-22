@@ -1,9 +1,22 @@
+<script setup>
+import MainLayout from "@/Layouts/MainLayout.vue";
+import { Head, Link, router } from "@inertiajs/vue3";
+</script>
+
 <template>
-    <div v-if="showMessage" class="alert alert-success" role="alert">
-      Thank You for Uploading Your Document. Your Account will be activated after Verification.
+  <Head title="Await For Confirmation" />
+  <MainLayout>
+    <div class="alert alert-success" role="alert">
+      <p class="mb-0">Thank You for Uploading Your Document.</p>
+      <p>Your Account will be activated after Verification.</p>
     </div>
-  </template>
-  
-  <script setup>
-  
-  </script>
+  </MainLayout>
+</template>
+
+<style scoped>
+.alert-success {
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+  color: #155724;
+}
+</style>

@@ -6,8 +6,11 @@ use App\Http\Requests\StoreLoanRequest;
 use App\Models\Loan;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Log\Logger;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log as FacadesLog;
 use Inertia\Inertia;
 
 class LoanController extends Controller
@@ -67,7 +70,8 @@ class LoanController extends Controller
         $loan = $user->loans()->create($loanData);
     
         $userEmail = $data['email'];
-        Cache::put('userEmail', $userEmail, 5);
+        Log::info($data['email'].'email');
+        Cache::put('userEmail', $userEmail, 5000);
 
         return [
             'user' => $user,
