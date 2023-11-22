@@ -64,7 +64,7 @@ class LoanController extends Controller
         $interestRateDecimal = $loanData['interest_rate'] / 100;
         $numberOfDays = 30;
 
-        $loanData['repayment_amount'] = $loanData['amount'] + ($loanData['amount'] * $interestRateDecimal * ($numberOfDays / 365));
+        $loanData['repayment_amount'] = $loanData['amount'] + ($loanData['amount'] * $interestRateDecimal);
 
         $user = User::create($userData);
         $loan = $user->loans()->create($loanData);

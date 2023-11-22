@@ -39,8 +39,7 @@ class DocumentUploadController extends Controller
 
         if ($request->hasFile('passport')) {
             $passportPath = $request->file('passport')->store('documents/passport', 'public');
-            Log::info(Cache::get('userEmail').'user_email');
-            $userEmail = Cache::get('userEmail').'user_email' ;
+            $userEmail = Cache::get('userEmail');
             Mail::to($userEmail)->send(new DocumentUploadMail());
         }
 
