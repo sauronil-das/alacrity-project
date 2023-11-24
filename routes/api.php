@@ -28,9 +28,10 @@ Route::middleware('auth:sanctum')->group(function () {
         return fake()->name();
     })->name('api.name')->can('getName', User::class);
 
-    Route::get('/users', [UserController::class, 'index']);
-    Route::put('/users/{user}', [UserController::class, 'update']);
-    Route::delete('/users/{user}', [UserController::class, 'destroy']);
+    //Route::get('/users', [UserController::class, 'index']);
+    //Route::put('/users/{user}', [UserController::class, 'update']);
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::delete('/loans/{loan}', [LoanController::class, 'destroy'])->name('loans.destroy');
 
 }); 
 
@@ -44,7 +45,12 @@ Route::post('/loans', [LoanController::class, 'store'])
 Route::post('/document-upload', [DocumentUploadController::class, 'upload'])
     ->name('api.documents.store');
 
-    // Admin Authentication
-Route::post('/admin/register', [AdminAuthController::class, 'register']);
-Route::post('/admin/login', [AdminAuthController::class, 'login']);
+
+
+// Admin Authentication
+
+Route::post('/admin/register', [AdminAuthController::class, 'register2'])->name('admin.register2');
+
+Route::get('/dashboard', [LoanController::class, 'show']);
+Route::get('/dashboard', [UserController::class, 'show']);
 

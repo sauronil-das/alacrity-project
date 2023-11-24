@@ -43,9 +43,6 @@ class LoanController extends Controller
     public function store(StoreLoanRequest $request)
     {
         $data = $request->validated();
-        
-
-
         $userKeys = [
             'email',
             'name',
@@ -62,7 +59,6 @@ class LoanController extends Controller
         $loanData['interest_rate'] = 4.5;
 
         $interestRateDecimal = $loanData['interest_rate'] / 100;
-        $numberOfDays = 30;
 
         $loanData['repayment_amount'] = $loanData['amount'] + ($loanData['amount'] * $interestRateDecimal);
 
@@ -82,9 +78,13 @@ class LoanController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Loan $loan)
+    public function show()
     {
         //
+        // $loans = Loan::all();
+        // return response()->json($loans);
+        
+
     }
 
     /**
@@ -109,5 +109,7 @@ class LoanController extends Controller
     public function destroy(Loan $loan)
     {
         //
+        $loan->delete();
+        return response()->json(['message' => 'Loan deleted successfully']);    
     }
 }
